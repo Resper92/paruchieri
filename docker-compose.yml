@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16
+    container_name: hairstylist_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: booking_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - parrucchieri_data_volume:/var/lib/postgresql/data
+
+volumes:
+  parrucchieri_data_volume:
+    name: hairstylist_booking_db_storage
