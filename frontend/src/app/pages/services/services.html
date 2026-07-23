@@ -1,0 +1,60 @@
+<section class="page">
+  <h1>Services</h1>
+
+  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Salon
+      <select formControlName="salon_id">
+        <option [ngValue]="0" disabled>Select a salon</option>
+        @for (salon of salons(); track salon.id) {
+          <option [ngValue]="salon.id">{{ salon.name }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Name
+      <input type="text" formControlName="name" />
+    </label>
+    <label>
+      Price
+      <input type="number" step="0.01" formControlName="price" />
+    </label>
+    <label>
+      Duration (min)
+      <input type="number" formControlName="duration_minutes" />
+    </label>
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <button type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Saving…' : 'Add service' }}
+    </button>
+  </form>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Duration (min)</th>
+        <th>Salon ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (service of services(); track service.id) {
+        <tr>
+          <td>{{ service.id }}</td>
+          <td>{{ service.name }}</td>
+          <td>{{ service.price ?? '—' }}</td>
+          <td>{{ service.duration_minutes ?? '—' }}</td>
+          <td>{{ service.salon_id }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5">No services yet.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

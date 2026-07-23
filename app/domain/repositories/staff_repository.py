@@ -1,0 +1,13 @@
+from typing import Protocol
+
+from app.domain.entities.staff import Staff
+
+
+class StaffRepository(Protocol):
+    def get(self, staff_id: int) -> Staff | None: ...
+
+    def get_multi(self, skip: int = 0, limit: int = 100) -> list[Staff]: ...
+
+    def get_multi_by_salon(self, salon_id: int, skip: int = 0, limit: int = 100) -> list[Staff]: ...
+
+    def add(self, staff: Staff) -> Staff: ...

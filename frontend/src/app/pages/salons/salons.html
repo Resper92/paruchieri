@@ -1,0 +1,47 @@
+<section class="page">
+  <h1>Salons</h1>
+
+  @if (canCreate()) {
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        Name
+        <input type="text" formControlName="name" />
+      </label>
+      <label>
+        Address
+        <input type="text" formControlName="address" />
+      </label>
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Saving…' : 'Add salon' }}
+      </button>
+    </form>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (salon of salons(); track salon.id) {
+        <tr>
+          <td>{{ salon.id }}</td>
+          <td>{{ salon.name }}</td>
+          <td>{{ salon.address || '—' }}</td>
+          <td>{{ salon.owner_id }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="4">No salons yet.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

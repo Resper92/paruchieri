@@ -1,0 +1,13 @@
+from typing import Protocol
+
+from app.domain.entities.service import Service
+
+
+class ServiceRepository(Protocol):
+    def get(self, service_id: int) -> Service | None: ...
+
+    def get_multi(self, skip: int = 0, limit: int = 100) -> list[Service]: ...
+
+    def get_multi_by_salon(self, salon_id: int, skip: int = 0, limit: int = 100) -> list[Service]: ...
+
+    def add(self, service: Service) -> Service: ...

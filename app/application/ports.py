@@ -1,0 +1,13 @@
+from typing import Protocol
+
+
+class PasswordHasher(Protocol):
+    def hash(self, password: str) -> str: ...
+
+    def verify(self, password: str, password_hash: str) -> bool: ...
+
+
+class TokenService(Protocol):
+    def create_access_token(self, subject: str) -> str: ...
+
+    def decode_subject(self, token: str) -> str: ...

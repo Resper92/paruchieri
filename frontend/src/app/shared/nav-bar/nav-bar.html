@@ -1,0 +1,22 @@
+@if (isAuthenticated()) {
+  <nav class="nav-bar">
+    <div class="nav-bar__brand">Parrucchieri Booking</div>
+    <div class="nav-bar__links">
+      <a routerLink="/salons" routerLinkActive="is-active">Salons</a>
+      @if (canManageSalon()) {
+        <a routerLink="/staff" routerLinkActive="is-active">Staff</a>
+        <a routerLink="/services" routerLinkActive="is-active">Services</a>
+      }
+      <a routerLink="/appointments" routerLinkActive="is-active">Appointments</a>
+      @if (isSuperadmin()) {
+        <a routerLink="/admin" routerLinkActive="is-active">Admin</a>
+      }
+    </div>
+    <div class="nav-bar__user">
+      @if (currentUser()) {
+        <span>{{ currentUser()?.email }} ({{ currentUser()?.role }})</span>
+      }
+      <button type="button" (click)="logout()">Log out</button>
+    </div>
+  </nav>
+}

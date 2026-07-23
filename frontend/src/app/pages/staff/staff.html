@@ -1,0 +1,48 @@
+<section class="page">
+  <h1>Staff</h1>
+
+  <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Salon
+      <select formControlName="salon_id">
+        <option [ngValue]="0" disabled>Select a salon</option>
+        @for (salon of salons(); track salon.id) {
+          <option [ngValue]="salon.id">{{ salon.name }}</option>
+        }
+      </select>
+    </label>
+    <label>
+      Name
+      <input type="text" formControlName="name" />
+    </label>
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <button type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Saving…' : 'Add staff member' }}
+    </button>
+  </form>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salon ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (member of staff(); track member.id) {
+        <tr>
+          <td>{{ member.id }}</td>
+          <td>{{ member.name }}</td>
+          <td>{{ member.salon_id }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">No staff yet.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

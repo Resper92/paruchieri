@@ -1,0 +1,33 @@
+<div class="auth-card">
+  <h1>Create account</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+    </label>
+
+    <label>
+      Password
+      <input type="password" formControlName="password" />
+    </label>
+
+    <label>
+      Role
+      <select formControlName="role">
+        <option [value]="Role.Client">Client</option>
+        <option [value]="Role.Parrucchiere">Parrucchiere (salon owner)</option>
+      </select>
+    </label>
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <button type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Creating…' : 'Create account' }}
+    </button>
+  </form>
+
+  <p>Already have an account? <a routerLink="/login">Log in</a></p>
+</div>

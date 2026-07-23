@@ -1,0 +1,71 @@
+<section class="page">
+  <h1>Appointments</h1>
+
+  @if (canBook()) {
+    <form class="entity-form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        Staff
+        <select formControlName="staff_id">
+          <option [ngValue]="0" disabled>Select staff</option>
+          @for (member of staff(); track member.id) {
+            <option [ngValue]="member.id">{{ member.name }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Service
+        <select formControlName="service_id">
+          <option [ngValue]="0" disabled>Select service</option>
+          @for (service of services(); track service.id) {
+            <option [ngValue]="service.id">{{ service.name }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Start
+        <input type="datetime-local" formControlName="start_time" />
+      </label>
+      <label>
+        End
+        <input type="datetime-local" formControlName="end_time" />
+      </label>
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Booking…' : 'Book appointment' }}
+      </button>
+    </form>
+  }
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Client</th>
+        <th>Staff</th>
+        <th>Service</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (appointment of appointments(); track appointment.id) {
+        <tr>
+          <td>{{ appointment.id }}</td>
+          <td>{{ appointment.client_id }}</td>
+          <td>{{ appointment.staff_id }}</td>
+          <td>{{ appointment.service_id }}</td>
+          <td>{{ appointment.start_time | date: 'short' }}</td>
+          <td>{{ appointment.end_time | date: 'short' }}</td>
+          <td>{{ appointment.status }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="7">No appointments yet.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>
