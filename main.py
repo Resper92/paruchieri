@@ -45,6 +45,8 @@ def login():  # Corretto il nome della funzione (era loghin)
 
     return jsonify({'status': 'success', 'message': 'Login successful!'}), 200
 
+
+
 if __name__ == '__main__':
     init_db()  # Inizializza il DB all'avvio
     app.run(debug=True)
